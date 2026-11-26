@@ -1,0 +1,20 @@
+# CubeIDE build output
+Debug/
+Release/
+*.o
+*.d
+*.elf
+*.map
+*.list
+*.su
+*.bin
+*.hex
+
+# workspace / IDE
+.metadata/
+.settings/
+*.launch
+
+# Python
+__pycache__/
+log.txt
