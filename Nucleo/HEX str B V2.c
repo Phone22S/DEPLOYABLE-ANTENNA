@@ -49,16 +49,16 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-typedef struct
+struct Packet
 {
 	uint8_t src;
 	uint8_t dest;
 	uint8_t cmd;
 	uint8_t data;
-} Packet;
+};
 
 uint8_t uartRxByte;
-static Packet rxPkt;
+static struct Packet rxPkt; 
 //
 static volatile int pktReady = 0;
 static volatile int statusRequest = 0;
@@ -185,7 +185,7 @@ int main(void)
 		HAL_IWDG_Refresh(&hiwdg);
 		if (pktReady == 1)
 		{
-			Packet p = rxPkt;
+			struct Packet p = rxPkt;  
 			pktReady = 0;
 			char dbg[24];
 			int dn = snprintf(dbg, sizeof(dbg), "RX %02X%02X%02X%02X\r\n",

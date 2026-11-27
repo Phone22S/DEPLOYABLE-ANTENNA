@@ -51,13 +51,14 @@ UART_HandleTypeDef huart2;
 #define RES_UNKNOWN  0xEE
 #define RES_NO_ROUTE 0xE1
 
-typedef struct
+
+struct Packet
 {
 	uint8_t src;
 	uint8_t dest;
 	uint8_t cmd;
 	uint8_t data;
-} Packet;
+};
 
 uint8_t rx1Byte;
 uint8_t rx2Byte;
@@ -67,9 +68,9 @@ static char pcLine[LINE_MAX];
 static uint8_t pcLen = 0;
 static char bdLine[LINE_MAX];
 static uint8_t bdLen = 0;
-static Packet pcPkt;
+static struct Packet pcPkt;
 static volatile int pcReady = 0;
-static Packet bdPkt;
+static struct Packet bdPkt;
 static volatile int bdReady = 0;
 /* USER CODE END PV */
 
@@ -209,7 +210,7 @@ int main(void)
 
 		if (pcReady == 1)
 		{
-			Packet p = pcPkt;
+			struct Packet p = pcPkt;
 			pcReady = 0;
 
 			if (p.dest == ID_ANT)
@@ -236,7 +237,7 @@ int main(void)
 
 		if (bdReady == 1)
 		{
-			Packet p = bdPkt;
+			struct Packet p = bdPkt;
 			bdReady = 0;
 
 			if (p.dest == ID_OBC)
